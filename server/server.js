@@ -25,9 +25,8 @@ app.use("/api/notifications", require("./routes/notificationRoutes"));
 
 app.use("/api/users", require("./routes/userRoutes"));
 
-
 /* ================= SERVE REACT ================= */
-const frontendPath = path.join(__dirname, "../pl/build");
+const frontendPath = path.join(__dirname, "../pl/dist");
 console.log("Frontend path:", frontendPath);
 
 app.use(express.static(frontendPath));
