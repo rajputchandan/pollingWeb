@@ -26,8 +26,16 @@ app.use("/api/notifications", require("./routes/notificationRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 
 
+/* ================= SERVE REACT ================= */
+const frontendPath = path.join(__dirname, "../pl/build");
+console.log("Frontend path:", frontendPath);
 
-app.use(express.static(path.join(__dirname, "../client/dist")));
+app.use(express.static(frontendPath));
+
+/* ⚠️ Express v5 FIX — DO NOT use app.get("*") */
+app.use((req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
