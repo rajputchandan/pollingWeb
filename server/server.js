@@ -1,6 +1,10 @@
+
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
+// console.log(dotenv)/
+
 const path = require("path");
 
 const connectDB = require("./config/db");
@@ -22,16 +26,8 @@ app.use("/api/notifications", require("./routes/notificationRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 
 
-// ===== FRONTEND SERVE =====
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/dist")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.resolve(__dirname, "../client/dist/index.html")
-    );
-  });
-}
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
